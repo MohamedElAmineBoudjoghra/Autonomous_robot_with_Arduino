@@ -13,8 +13,8 @@
 #define PWM2 10
 #define TRIGPIN1  11   //the first ultrasonic sensor placed on the front side of the robot
 #define ECHOPIN1 12
-#define TRIGPIN1  2   //the second ultrasonic sensor placed on the right of the robot
-#define ECHOPIN1 3   
+#define TRIGPIN2  2   //the second ultrasonic sensor placed on the right of the robot
+#define ECHOPIN2 3   
 
 //defining constants
 #define d_baseline 20  //the distance between the two wheels' centers
@@ -79,6 +79,8 @@ void setup()
   pinMode(PWM2,OUTPUT);
   pinMode(TRIGPIN1, OUTPUT);
   pinMode(ECHOPIN1, INPUT);
+  pinMode(TRIGPIN2, OUTPUT);
+  pinMode(ECHOPIN2, INPUT);
   Serial.begin(115200);
   
   // setting the PID controller
@@ -281,12 +283,12 @@ int obstacle_on_the_right(void)
 {
     float duration,distance;
     int flag = 0;
-    digitalWrite(TRIGPIN1, LOW);
+    digitalWrite(TRIGPIN2, LOW);
     delayMicroseconds(2);
-    digitalWrite(TRIGPIN1, HIGH);
+    digitalWrite(TRIGPIN2, HIGH);
     delayMicroseconds(10);
-    digitalWrite(TRIGPIN1, LOW);
-    duration = pulseIn(ECHOPIN1, HIGH);
+    digitalWrite(TRIGPIN2, LOW);
+    duration = pulseIn(ECHOPIN2, HIGH);
     distance = duration*0.034/2;
     if(distance < 5) flag = 1;
     else flag = 0;
